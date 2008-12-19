@@ -1,0 +1,3 @@
+scan post content for @, create 'in-reply-to' links
+acts_as_ferret for searching
+tagging
