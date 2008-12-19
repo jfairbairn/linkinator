@@ -1,0 +1,22 @@
+%h2
+  &= post.title
+
+- if post.url && post.url =~ /^http:\/\/([a-zA-Z]+\.)?youtube\.com\/watch\?v=([a-zA-Z0-9]+)/
+  %object{:width => 480, :height => 385}
+    %param{:name => "movie", :value=>"http://www.youtube.com/v/#{$2}&hl=en&fs=1&rel=0&color1=0xcc2550&color2=0xe87a9f"}
+    %param{:name => "allowFullScreen", :value => "true"}
+    %param{:name => "allowscriptaccess", :value => "always"}
+    %embed{:src => "http://www.youtube.com/v/#{$2}&hl=en&fs=1&rel=0&color1=0xcc2550&color2=0xe87a9f", :type => "application/x-shockwave-flash", :allowscriptaccess => "always", :allowfullscreen => "true", :width => "480", :height =>"385"}
+
+.content
+  &= post.content
+
+.meta
+  Posted by
+  = link_to post.user.login, posts_by_url("#{post.user.login}")
+  at
+  = post.created_at
+  - if post.user == current_user
+    = link_to 'delete', post_url(post), :method => :delete, :confirm => 'Are you sure you want to delete this?'
+  
+%hr/

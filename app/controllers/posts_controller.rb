@@ -13,16 +13,20 @@ class PostsController < ApplicationController
   
   def by
     username = params[:id].gsub /^~/, ''
-    user = User.find(:first, :conditions => ['login=?', username])
+    user = User.find(:first, :conditions => ['login=?', username]) or return not_found
     return not_found if user.nil?
     @posts = user.posts.find(:all, :order => 'created_at desc')
     render :action => 'posts'
+  end
+  
+  def destroy
+    @post = current_user.posts.find(:first, :conditions => ['id=?', params[:id]]) or return not_found
+    @post.destroy
+    redirect_to :back
   end
   
   def latest
     @posts = Post.find(:all, :order => 'created_at desc')
     render :action => 'posts'
   end
-  
-  
 end
