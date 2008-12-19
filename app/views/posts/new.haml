@@ -1,0 +1,13 @@
+= error_messages_for 'post'
+
+- form_for :post, @post, :url => posts_url() do |f|
+  Title:
+  = f.text_field :title
+  %br/
+  URL:
+  = f.text_field :url
+  %br/
+  Content:
+  = f.text_area :content
+  %br/
+  = submit_tag 'Save'
