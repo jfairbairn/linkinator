@@ -5,7 +5,7 @@ class PostsController < ApplicationController
     @post = Post.new(params[:post])
     @post.user = current_user
     if @post.save
-      return redirect_to @post.url if @post.url
+      return redirect_to(@post.url) if @post.url
       return redirect_to by_posts_url(:id => "~#{current_user.login}")
     end
     render :action => 'new'
