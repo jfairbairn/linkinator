@@ -1,0 +1,69 @@
+!bastardpink = #ff3399
+!darkteal = #003366
+!linkcolor = #009
+!darkgrey = #666
+
+!sans = "Helvetica Neue", "Helvetica", "Arial"
+!serif = "Book Antiqua"
+
+body
+  :font-family = !serif
+  :font-size 11pt
+  :background-color = !darkteal
+  :line-height 120%
+  
+h1, h2, h3, h4, h5, h6
+  :font-family = !sans
+  :line-height 100%
+  :margin 0
+  :padding 0
+
+a
+  :color = !linkcolor
+
+#outer
+  :margin auto
+  :background-color white
+  :width 850px
+
+  #header
+    :margin 0
+    :background-color = !bastardpink
+    :color white
+    h1
+      :padding 0.5em
+  
+  #sidebar, #content
+    h1, h2, h3, h4, h5, h6
+      :margin-bottom 0.5em
+
+  #sidebar
+    :margin 1em 1em 1em 0
+    :float left
+    :width 250px
+    label
+      :color = !darkgrey
+      :font-family = !sans
+      :font-size 9pt
+    input[type=text], textarea
+      :width 250px
+
+  #content
+    :margin 1em
+    :float left
+
+    label
+      :display block
+
+    .meta
+      :font-family = !sans
+      :font-size 10pt
+      :color = !darkgrey
+      a
+        :color !darkgrey
+
+
+
+.clearing
+  :clear both
+

@@ -1,0 +1,14 @@
+!!!1.1
+%html
+  %head
+    %title= yield :title
+    = stylesheet_link_tag 'default'
+  %body
+    #outer
+      #header
+        %h1= yield :title
+      #content
+        = yield
+      #sidebar
+        = yield :sidebar
+      .clearing

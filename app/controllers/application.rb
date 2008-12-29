@@ -3,6 +3,7 @@
 
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
+  layout 'default'
   # Be sure to include AuthenticationSystem in Application Controller instead
   include AuthenticatedSystem
 
