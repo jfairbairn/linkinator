@@ -7,7 +7,7 @@
 !serif = "Book Antiqua"
 
 body
-  :font-family = !serif
+  :font-family = !sans
   :font-size 11pt
   :background-color = !darkteal
   :line-height 120%
@@ -24,7 +24,7 @@ a
 #outer
   :margin auto
   :background-color white
-  :width 850px
+  :width 750px
 
   #header
     :margin 0
@@ -40,17 +40,18 @@ a
   #sidebar
     :margin 1em 1em 1em 0
     :float left
-    :width 250px
+    :width 205px
     label
       :color = !darkgrey
       :font-family = !sans
       :font-size 9pt
     input[type=text], textarea
-      :width 250px
+      :width 205px
 
   #content
     :margin 1em
     :float left
+    :width 500px
 
     label
       :display block
@@ -61,6 +62,9 @@ a
       :color = !darkgrey
       a
         :color !darkgrey
+    
+    .youtube
+      :margin 0.5em 0
 
 
 

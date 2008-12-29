@@ -1,22 +1,19 @@
 class PostsController < ApplicationController
   before_filter :login_required
+  include PostsHelper
+  
+  def new
+    @post = Post.new(params[:post])
+  end
   
   def create
     @post = Post.new(params[:post])
     @post.user = current_user
     if @post.save
-      return redirect_to(@post.url) if @post.url
-      return redirect_to by_posts_url(:id => "~#{current_user.login}")
+      return redirect_to(@post.urls.first.url) unless @post.urls.empty?
+      return redirect_to(posts_by_url(current_user.login))
     end
     render :action => 'new'
-  end
-  
-  def by
-    username = params[:id].gsub /^~/, ''
-    user = User.find(:first, :conditions => ['login=?', username]) or return not_found
-    return not_found if user.nil?
-    @posts = user.posts.find(:all, :order => 'created_at desc')
-    render :action => 'posts'
   end
   
   def destroy
@@ -25,8 +22,21 @@ class PostsController < ApplicationController
     redirect_to :back
   end
   
+  def show
+    @post = Post.find(:first, :conditions => ['id=?', params[:id]]) or return not_found
+  end
+  
   def latest
     @posts = Post.find(:all, :order => 'created_at desc')
     render :action => 'posts'
   end
+
+  def by
+    username = params[:id].gsub /^~/, ''
+    user = User.find(:first, :conditions => ['login=?', username]) or return not_found
+    return not_found if user.nil?
+    @posts = user.posts.find(:all, :order => 'created_at desc')
+    render :action => 'posts'
+  end
+  
 end
