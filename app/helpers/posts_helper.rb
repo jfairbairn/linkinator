@@ -12,10 +12,12 @@ module PostsHelper
       if link['href'] =~ /^http:\/\/([a-zA-Z]+\.)?youtube\.com\/watch\?v=([a-zA-Z0-9]+)/
         link['class'] = 'embed'
         link.parent.insert_before link.make(youtube_embed($2)), link
-      end
-      if link['href'] =~ /^http:\/\/(www\.)?vimeo\.com\/([0-9]+)/
+      elsif link['href'] =~ /^http:\/\/(www\.)?vimeo\.com\/([0-9]+)/
         link['class'] = 'embed'
         link.parent.insert_before link.make(vimeo_embed($2)), link
+      elsif link['href'] =~ /^http:\/\/(www\.)?flickr\.com\/photos\/[A-Za-z0-9@]+\/(\d+)\/?/
+        link['class'] = 'flickr'
+        link['id'] = "flickr#{$2}"
       end
     end
     h.to_s
