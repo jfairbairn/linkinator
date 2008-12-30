@@ -10,10 +10,12 @@ module PostsHelper
     (h/'a').each do |link|
       next unless link['href']
       if link['href'] =~ /^http:\/\/([a-zA-Z]+\.)?youtube\.com\/watch\?v=([a-zA-Z0-9]+)/
-        link.parent.insert_after link.make(youtube_embed($2)), link
+        link['class'] = 'embed'
+        link.parent.insert_before link.make(youtube_embed($2)), link
       end
       if link['href'] =~ /^http:\/\/(www\.)?vimeo\.com\/([0-9]+)/
-        link.parent.insert_after link.make(vimeo_embed($2)), link
+        link['class'] = 'embed'
+        link.parent.insert_before link.make(vimeo_embed($2)), link
       end
     end
     h.to_s

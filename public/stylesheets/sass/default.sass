@@ -49,22 +49,33 @@ a
       :width 205px
 
   #content
+    h2
+      :font-size 100%
     :margin 1em
     :float left
     :width 500px
+    :border-top 1px dashed black
+    :border-top-color = !darkgrey
+    
+    .post
+      :margin 0.5em 0
+      :border-bottom 1px dashed black
+      :border-bottom-color = !darkgrey
+      .meta
+        :font-family = !sans
+        :font-size 10pt
+        :color = !darkgrey
+        a
+          :color !darkgrey
+    
+      div.embed
+        :margin 0.5em 0
+      a.embed
+        :color = !darkgrey
+        :font-size 9pt
 
     label
       :display block
-
-    .meta
-      :font-family = !sans
-      :font-size 10pt
-      :color = !darkgrey
-      a
-        :color !darkgrey
-    
-    .embed
-      :margin 0.5em 0
 
 
 
