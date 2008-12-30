@@ -4,9 +4,7 @@ $(function() {
     $.getJSON(url, function(data) {
       p = data['photo'];
       img = '<img src="http://farm' + p['farm'] + '.static.flickr.com/' + p['server'] + '/' + p['id'] + '_' + p['secret'] + '.jpg"/>';
-      x = '#flickr' + p['id'];
-      $(x).prepend(img);
-      $(x).addClass('embed');
+      $('#flickr' + p['id']).prepend(img).addClass('embed');
     });
   });
 });

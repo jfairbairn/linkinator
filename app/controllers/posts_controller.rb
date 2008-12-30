@@ -4,13 +4,14 @@ class PostsController < ApplicationController
   
   def new
     @post = Post.new(params[:post])
+    flash[:return] = params[:return] if params[:return]
   end
   
   def create
     @post = Post.new(params[:post])
     @post.user = current_user
     if @post.save
-      return redirect_to(@post.urls.first.url) unless @post.urls.empty?
+      return redirect_to(@post.urls.first.url) if !@post.urls.empty? && flash[:return]
       return redirect_to(posts_by_url(current_user.login))
     end
     render :action => 'new'

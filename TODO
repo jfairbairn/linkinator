@@ -1,8 +1,17 @@
-comments
+TO DO
+=====
 'in-reply-to' as comments
-scan post content for @, create 'in-reply-to' links
 acts_as_ferret for searching
+lsi for related posts
 tagging
 edit my posts
 rss (basic auth)
 json (basic auth)
+
+DONE
+====
+Auto-embed YouTube, Flickr, Vimeo
+
+MAYBE
+=====
+scan post content for @, create 'in-reply-to' links
