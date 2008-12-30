@@ -2,6 +2,9 @@ TO DO
 =====
 'in-reply-to' as comments
 acts_as_ferret for searching
+alerts by mail
+post by mail
+reply by mail
 lsi for related posts
 tagging
 edit my posts
