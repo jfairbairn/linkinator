@@ -1,7 +1,7 @@
 require 'hpricot'
 module PostsHelper
   def posts_by_url(username)
-    url_for(:controller => 'posts', :action => 'by', :id => "~#{username}")
+    url_for(:controller => 'posts', :action => 'by', :id => "~#{username}", :hr => params[:hr])
   end
   
   def format(content)
@@ -26,9 +26,9 @@ module PostsHelper
   
   def post_url_options(post)
     if post.in_reply_to_id.nil?
-      {:controller => 'posts', :action => 'show', :id => post.id.to_s}
+      {:controller => 'posts', :action => 'show', :id => post.id.to_s, :hr => params[:hr]}
     else
-      {:controller => 'posts', :action => 'show', :id => post.in_reply_to_id.to_s, :anchor => "p#{post.id}"}
+      {:controller => 'posts', :action => 'show', :id => post.in_reply_to_id.to_s, :anchor => "p#{post.id}", :hr => params[:hr]}
     end
   end
   

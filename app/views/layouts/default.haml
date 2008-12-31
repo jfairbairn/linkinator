@@ -8,8 +8,15 @@
   %body
     #outer
       #header
-        %h1
-          Linkinator!
+        %h1= link_to_unless_current 'Linkinator!', :controller => 'posts', :action => 'latest', :hr => params[:hr]
+        #control
+          - if logged_in?
+            .right
+              Logged in as
+              &= current_user.login
+              = '(' + link_to('Logout', logout_url) + ')'
+          = yield :header
+            
       #content
         = yield
       #sidebar

@@ -28,7 +28,7 @@ class PostsController < ApplicationController
   
   def latest
     opts = {:order => 'created_at desc'}
-    opts[:conditions] = 'in_reply_to_id is null' if params[:hide_replies]
+    opts[:conditions] = 'in_reply_to_id is null' if params[:hr]
     @posts = Post.find(:all, opts)
     render :action => 'posts'
   end
@@ -38,7 +38,7 @@ class PostsController < ApplicationController
     user = User.find(:first, :conditions => ['login=?', username]) or return not_found
     return not_found if user.nil?
     opts = {:order => 'created_at desc'}
-    opts[:conditions] = 'in_reply_to_id is null' if params[:hide_replies]
+    opts[:conditions] = 'in_reply_to_id is null' if params[:hr]
     @posts = user.posts.find(:all, opts)
     render :action => 'posts'
   end
