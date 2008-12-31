@@ -1,6 +1,8 @@
 class Post < ActiveRecord::Base
   belongs_to :user
   has_and_belongs_to_many :urls
+  belongs_to :in_reply_to, :class_name => "Post"
+  has_many :replies, :class_name => "Post", :foreign_key => "in_reply_to_id", :dependent => :nullify
 
   before_save do |post|
     post.update_urls!

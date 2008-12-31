@@ -24,6 +24,31 @@ module PostsHelper
     
   end
   
+  def post_url_options(post)
+    if post.in_reply_to_id.nil?
+      {:controller => 'posts', :action => 'show', :id => post.id.to_s}
+    else
+      {:controller => 'posts', :action => 'show', :id => post.in_reply_to_id.to_s, :anchor => "p#{post.id}"}
+    end
+  end
+  
+  def smart_post_url(post)
+    url_for(post_url_options(post))
+  end
+  
+  def post_link(post)
+    url = post_url_options post
+    b = url.dup
+    b.delete(:anchor)
+    b.stringify_keys!
+    if b == {}.merge(params)
+      h(post.title)
+    else
+      link_to(post.title, url)
+    end
+  end
+  
+  
   private
   def youtube_embed(movie)
     return <<-EOF

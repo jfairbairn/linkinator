@@ -1,20 +1,21 @@
 TO DO
 =====
-'in-reply-to' as comments
-acts_as_ferret for searching
 alerts by mail
 post by mail
 reply by mail
+acts_as_ferret for searching
 lsi for related posts
-tagging
 edit my posts
 rss (basic auth)
+tagging
 json (basic auth)
 
 DONE
 ====
 Auto-embed YouTube, Flickr, Vimeo
+'in-reply-to' as comments
 
 MAYBE
 =====
 scan post content for @, create 'in-reply-to' links
+ask for confirmation when all detected URLs already exist

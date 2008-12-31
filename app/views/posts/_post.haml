@@ -1,14 +1,16 @@
 .post
+  %a{'name'=>"p#{post.id}"}
   %h2
-    &= post.title
+    = post_link post
 
   .meta
     Posted by
     = link_to post.user.login, posts_by_url("#{post.user.login}")
     at
     = post.created_at
-    - if post.user == current_user
-      = link_to 'delete', post_url(post), :method => :delete, :confirm => 'Are you sure you want to delete this?'
+    - unless defined? hide_in_reply_to or post.in_reply_to.nil?
+      in reply to
+      = link_to post.in_reply_to.title, post_url(post.in_reply_to)
 
   .content
     = format(post.content)

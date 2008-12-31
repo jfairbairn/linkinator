@@ -1,6 +1,7 @@
 = error_messages_for 'post'
 
 - form_for :post, post, :url => posts_url() do |f|
+  = f.hidden_field :in_reply_to_id
   %label{:for=>'post_title'}Title:
   = f.text_field :title
   %label{:for=>'post_content'}Content:

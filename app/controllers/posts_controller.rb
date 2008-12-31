@@ -3,32 +3,33 @@ class PostsController < ApplicationController
   include PostsHelper
   
   def new
-    @post = Post.new(params[:post])
+    @new_post = Post.new(params[:post])
     flash[:return] = params[:return] if params[:return]
   end
   
   def create
-    @post = Post.new(params[:post])
-    @post.user = current_user
-    if @post.save
-      return redirect_to(@post.urls.first.url) if !@post.urls.empty? && flash[:return]
-      return redirect_to(posts_by_url(current_user.login))
+    @new_post = Post.new(params[:post])
+    @new_post.user = current_user
+    if @new_post.save
+      return redirect_to(@new_post.urls.first.url) if !@new_post.urls.empty? && flash[:return]
+      return redirect_to(smart_post_url(@new_post))
+    end
+    if @new_post.in_reply_to_id # show errors inline
+      show
+      return render(:action => 'show', :id => @new_post.in_reply_to_id)
     end
     render :action => 'new'
   end
   
-  def destroy
-    @post = current_user.posts.find(:first, :conditions => ['id=?', params[:id]]) or return not_found
-    @post.destroy
-    redirect_to :back
-  end
-  
   def show
     @post = Post.find(:first, :conditions => ['id=?', params[:id]]) or return not_found
+    @new_post = Post.new(:in_reply_to_id => @post.id) unless @new_post
   end
   
   def latest
-    @posts = Post.find(:all, :order => 'created_at desc')
+    opts = {:order => 'created_at desc'}
+    opts[:conditions] = 'in_reply_to_id is null' if params[:hide_replies]
+    @posts = Post.find(:all, opts)
     render :action => 'posts'
   end
 
@@ -36,7 +37,9 @@ class PostsController < ApplicationController
     username = params[:id].gsub /^~/, ''
     user = User.find(:first, :conditions => ['login=?', username]) or return not_found
     return not_found if user.nil?
-    @posts = user.posts.find(:all, :order => 'created_at desc')
+    opts = {:order => 'created_at desc'}
+    opts[:conditions] = 'in_reply_to_id is null' if params[:hide_replies]
+    @posts = user.posts.find(:all, opts)
     render :action => 'posts'
   end
   

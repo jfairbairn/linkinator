@@ -1,14 +1,15 @@
 !!!1.1
 %html
   %head
-    %title= yield :title
+    %title Linkinator!
     = javascript_include_tag 'jquery'
     = javascript_include_tag 'flickr'
     = stylesheet_link_tag 'default'
   %body
     #outer
       #header
-        %h1= yield :title
+        %h1
+          Linkinator!
       #content
         = yield
       #sidebar
