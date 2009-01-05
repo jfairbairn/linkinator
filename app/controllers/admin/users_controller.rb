@@ -21,7 +21,7 @@ class Admin::UsersController < ApplicationController
   
   def update
     @user = User.find(:first, :conditions => ['id=?',params[:id]]) or return not_found
-    
+    params.delete :login
     if @user.update_attributes(params[:user])
       redirect_to admin_users_url
     else
