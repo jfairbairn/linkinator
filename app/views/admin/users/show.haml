@@ -1,4 +1,4 @@
 = error_messages_for 'user'
 - form_for :user, @user, :url => admin_user_url(@user), :html => {:method => :put} do |f|
-  = render :partial => 'users/form', :locals => {:f => f}
+  = render :partial => 'form', :locals => {:f => f}
   = submit_tag 'update'
