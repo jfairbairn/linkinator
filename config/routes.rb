@@ -6,6 +6,10 @@ ActionController::Routing::Routes.draw do |map|
   map.register '/register', :controller => 'users', :action => 'create'
   map.signup '/signup', :controller => 'users', :action => 'new'
   map.resources :users
+  
+  map.namespace :admin do |admin|
+    admin.resources :users
+  end
 
   map.resource :session
 

@@ -5,6 +5,11 @@ module AuthenticatedSystem
     def logged_in?
       !!current_user
     end
+    
+    def admin_logged_in?
+      logged_in? && current_user.is_admin?
+    end
+    
 
     # Accesses the current user from the session.
     # Future calls avoid the database because nil is not equal to false.
@@ -52,7 +57,12 @@ module AuthenticatedSystem
     def login_required
       authorized? || access_denied
     end
-
+    
+    def admin_login_required
+      admin_logged_in? || access_denied
+    end
+    
+    
     # Redirect as appropriate when an access request fails.
     #
     # The default action is to redirect to the login screen.

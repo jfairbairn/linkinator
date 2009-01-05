@@ -1,0 +1,15 @@
+=link_to 'new', new_admin_user_url
+
+%table
+  %thead
+    %tr
+      %th Username
+      %th Email
+      %th
+  %tbody
+    - @users.each do |user|
+      %tr
+        %td=link_to user.login, admin_user_url(user)
+        %td&= user.email
+        %td
+          =link_to 'delete', admin_user_url(user), :method => :delete, :confirm => "Are you sure you want to delete #{user.login}? There is no undo!" unless user == current_user
