@@ -4,6 +4,10 @@ class Post < ActiveRecord::Base
   belongs_to :in_reply_to, :class_name => "Post"
   has_many :replies, :class_name => "Post", :foreign_key => "in_reply_to_id", :dependent => :nullify
 
+  def self.per_page
+    50
+  end
+
   before_save do |post|
     if post.in_reply_to
       post.in_reply_to.reply_count += 1

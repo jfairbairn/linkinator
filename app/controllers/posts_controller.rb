@@ -29,7 +29,8 @@ class PostsController < ApplicationController
   def latest
     opts = {:order => 'created_at desc', :limit => 50}
     opts[:conditions] = 'in_reply_to_id is null' unless params[:sr]
-    @posts = Post.find(:all, opts)
+    opts[:page] = params[:page]
+    @posts = Post.paginate(:all, opts)
     render :action => 'posts'
   end
 
@@ -39,7 +40,8 @@ class PostsController < ApplicationController
     return not_found if user.nil?
     opts = {:order => 'created_at desc'}
     opts[:conditions] = 'in_reply_to_id is null' unless params[:sr]
-    @posts = user.posts.find(:all, opts)
+    opts[:page] = params[:page]
+    @posts = user.posts.paginate(:all, opts)
     render :action => 'posts'
   end
   

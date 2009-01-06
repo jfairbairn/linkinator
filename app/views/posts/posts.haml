@@ -12,5 +12,8 @@
     Want to linkinate any page on the web? Drag this link to your bookmarks bar:
     = "[<a href=\"javascript:location.href='#{new_post_url(:only_path => false)}?return=true&post[content]='+encodeURIComponent(location.href)+'&post[title]='+encodeURIComponent(document.title)\">Linkinate this!</a>]"
   
+= will_paginate @posts
 - @posts.each do |post|
   = render :partial => 'post', :locals => {:post => post}
+= will_paginate @posts
+  
