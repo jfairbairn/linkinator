@@ -5,7 +5,19 @@ class Post < ActiveRecord::Base
   has_many :replies, :class_name => "Post", :foreign_key => "in_reply_to_id", :dependent => :nullify
 
   before_save do |post|
+    if post.in_reply_to
+      post.in_reply_to.reply_count += 1
+      post.in_reply_to.save
+    end
     post.update_urls!
+  end
+  
+  after_create do |post|
+    unless post.in_reply_to
+      User.find(:all, :conditions => ['id != ?', post.user_id]).each do |user|
+        user.send_posts([post])
+      end
+    end
   end
   
   HTTP_URL_REGEX =  /(\s|^)(https?:\/\/[\w\-_\.\/\+%]+(\?[\w\-_\.\/\+%=\&]+)?)(\s|$)/
@@ -20,6 +32,10 @@ class Post < ActiveRecord::Base
     end
     self.urls.reject!{|i|! (new_urls.member?(i.url))}
     new_urls.each{|i|self.urls << Url.find_or_create(i) unless old_urls.member?(i)}
+  end
+  
+  def original_post_id
+    self.in_reply_to ? "Re: [link-#{self.in_reply_to.id}]" : "[link-#{self.id}]"
   end
   
 end

@@ -8,6 +8,7 @@ class Admin::UsersController < ApplicationController
   
   def create
     @user = User.new(params[:user])
+    @user.tmp_url = url_for(:controller => '/posts', :action => 'latest', :only_path => false)
     if @user.save
       redirect_to admin_users_url
     else

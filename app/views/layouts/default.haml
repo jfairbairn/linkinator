@@ -8,7 +8,7 @@
   %body
     #outer
       #header
-        %h1= link_to_unless_current 'Linkinator!', :controller => 'posts', :action => 'latest', :hr => params[:hr]
+        %h1= link_to_unless_current 'Linkinator!', :controller => 'posts', :action => 'latest', :sr => params[:sr]
         #control
           - if logged_in?
             .right

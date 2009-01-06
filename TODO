@@ -1,7 +1,6 @@
 TO DO
 =====
-user admin
-alerts by mail
+change password
 post by mail
 reply by mail
 acts_as_ferret for searching
@@ -13,6 +12,8 @@ json (basic auth)
 
 DONE
 ====
+alerts by mail
+user admin
 Auto-embed YouTube, Flickr, Vimeo
 'in-reply-to' as comments
 

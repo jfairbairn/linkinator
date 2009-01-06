@@ -1,0 +1,7 @@
+<%= @message if @message %><% if @messages ; @messages.each do |post|%>
+<%= post.title %>
+<%= post.title.gsub /./, '=' %>
+Posted by <%= post.user.login %> at <%= post.created_at %>
+
+<%= post.content%>
+<% end ; end %>

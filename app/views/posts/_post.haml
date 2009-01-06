@@ -7,10 +7,13 @@
     Posted by
     = link_to post.user.login, posts_by_url("#{post.user.login}")
     at
-    = post.created_at
-    - unless defined? hide_in_reply_to or post.in_reply_to.nil?
-      in reply to
-      = link_to post.in_reply_to.title, post_url(post.in_reply_to)
+    = "#{post.created_at}."
+    - if post.in_reply_to.nil?
+      - if post.reply_count > -1
+        = link_to("#{post.reply_count} replies", post_url_options(post).merge(:anchor => 'replies')) + '.'
+    - elsif ! defined? hide_in_reply_to
+      In reply to
+      = link_to(post.in_reply_to.title, post_url(post.in_reply_to)) + '.'
 
   .content
     = format(post.content)

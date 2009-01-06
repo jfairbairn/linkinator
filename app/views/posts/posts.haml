@@ -1,8 +1,8 @@
 - content_for :header do
-  - if params[:hr]
-    .left= link_to('Show replies', params.merge({:hr => false}))
+  - if params[:sr]
+    .left= link_to('Hide replies', params.merge({:sr => false}))
   - else
-    .left= link_to('Hide replies', {:hr => true}.merge(params))
+    .left= link_to('Show replies', {:sr => true}.merge(params))
   .clearing
 
 - content_for :sidebar do

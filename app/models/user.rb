@@ -24,8 +24,34 @@ class User < ActiveRecord::Base
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
   attr_accessible :login, :email, :name, :password, :password_confirmation
+  
+  attr_accessor :tmp_url
 
+  after_create do |user|
+    msg =  <<-EOF
 
+Hello,
+
+I've just created a Linkinator account for you! 
+
+The Linkinator is a place to share links, comments and discussions with
+your workmates. Wondering whether to clog up everyone's inbox with that
+fleetingly awesome YouTube movie? Wanting to start a discussion thread
+about anything at all?
+Wonder no more! Linkinate it and share the love.
+
+Anyway, enough chat. Your username is #{user.login} and your password is
+#{user.password} .
+
+You can get to the Linkinator at #{user.tmp_url}.
+
+Enjoy!
+
+The Linkinator
+
+EOF
+    user.send_msg("Welcome to Linkinator!",msg)
+  end
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   #
@@ -49,6 +75,16 @@ class User < ActiveRecord::Base
   def email=(value)
     write_attribute :email, (value ? value.downcase : nil)
   end
+
+  def send_msg(subject, msg, url=nil)
+    Notification.deliver_notification(self.email, subject, :message => msg)
+  end
+  
+  def send_posts(posts)
+    subject = posts.size == 1 ? "[link-#{posts[0].original_post_id}] #{posts[0].title}" : "[links] Recent posts from Linkinator"
+    Notification.deliver_notification(self.email, subject, :messages => posts)
+  end
+  
 
   protected
     
