@@ -1,6 +1,7 @@
 <%= @message if @message %><% if @messages ; @messages.each do |post|%>
 <%= post.title %>
 <%= post.title.gsub /./, '=' %>
+<%= post.tmp_url%>
 Posted by <%= post.user.login %> at <%= post.created_at %>
 
 <%= post.content%>

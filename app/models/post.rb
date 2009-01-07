@@ -3,6 +3,8 @@ class Post < ActiveRecord::Base
   has_and_belongs_to_many :urls
   belongs_to :in_reply_to, :class_name => "Post"
   has_many :replies, :class_name => "Post", :foreign_key => "in_reply_to_id", :dependent => :nullify
+  attr_accessor :tmp_controller
+  attr_accessor :tmp_url
 
   def self.per_page
     50
@@ -17,6 +19,7 @@ class Post < ActiveRecord::Base
   end
   
   after_create do |post|
+    post.tmp_url = post.tmp_controller.smart_post_url(post)
     unless post.in_reply_to
       User.find(:all, :conditions => ['id != ?', post.user_id]).each do |user|
         user.send_posts([post])
