@@ -16,7 +16,7 @@ class PostsController < ApplicationController
       return redirect_to(smart_post_url(@new_post))
     end
     if @new_post.in_reply_to_id # show errors inline
-      show
+      @post = @new_post
       return render(:action => 'show', :id => @new_post.in_reply_to_id)
     end
     render :action => 'new'
