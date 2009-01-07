@@ -9,7 +9,7 @@ class PostsController < ApplicationController
   
   def create
     @new_post = Post.new(params[:post])
-    @new_post.title = '(no title)' unless @new_post.title
+    @new_post.title ="(no title)" if @new_post.title == ''
     @new_post.user = current_user
     if @new_post.save
       return redirect_to(@new_post.urls.first.url) if !@new_post.urls.empty? && flash[:return]

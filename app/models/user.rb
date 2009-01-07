@@ -81,7 +81,7 @@ EOF
   end
   
   def send_posts(posts)
-    subject = posts.size == 1 ? "[link-#{posts[0].original_post_id}] #{posts[0].title}" : "[links] Recent posts from Linkinator"
+    subject = posts.size == 1 ? "#{posts[0].original_post_id} #{posts[0].title}" : "[links] Recent posts from Linkinator"
     Notification.deliver_notification(self.email, subject, :messages => posts)
   end
   
