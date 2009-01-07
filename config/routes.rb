@@ -9,6 +9,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :users
   end
 
+  map.resource :profile, :controller => 'profile'
   map.resource :session
 
   # The priority is based upon order of creation: first created -> highest priority.

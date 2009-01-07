@@ -2,6 +2,10 @@
 !darkteal = #003366
 !linkcolor = #009
 !darkgrey = #666
+!lightgreen = #cfc
+!darkgreen = #393
+!lightred = #fcc
+!darkred = #900
 
 !sans = "Helvetica Neue", "Helvetica", "Arial"
 !serif = "Book Antiqua"
@@ -63,6 +67,24 @@ a
       :font-size 10pt
       a
         :font-weight bold
+        
+  #message
+    :margin 0.5em
+    :background-color = !lightgreen
+    :border 2px solid black
+    :border-color = !darkgreen
+    :padding 0.25em
+    :color = !darkgreen
+    :text-align center
+
+  #error
+    :margin 0.5em
+    :background-color = !lightred
+    :border 2px solid black
+    :border-color = !darkred
+    :padding 0.25em
+    :color = !darkred
+    :text-align center
 
   #content
     h2

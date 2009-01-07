@@ -1,0 +1,25 @@
+%h2 Change email address
+
+- form_for :user, @user, :url => profile_url, :html => {:method => :put} do |f|
+  %p
+    = label_tag :email
+  = f.text_field :email
+  = submit_tag 'Update email'
+  
+%h2 Change password
+
+= error_messages_for 'user'
+
+- form_for :user, @user, :url => profile_url, :html => {:method => :put} do |f|
+  %p
+    = label_tag :old_password
+    = password_field_tag :old_password, '', :size => 30
+  %p
+    = label_tag :password, "New password"
+    %br/
+    = f.password_field :password
+  %p
+    = label_tag :password_confirmation, "Confirm new password"
+    %br/
+    = f.password_field :password_confirmation
+  %p= submit_tag 'Update password'

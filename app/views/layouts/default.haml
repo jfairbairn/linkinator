@@ -13,11 +13,16 @@
           - if logged_in?
             .right
               Logged in as
-              &= current_user.login
+              = link_to current_user.login, profile_url
               = '(' + link_to('Logout', logout_url) + ')'
           = yield :header
-            
       #content
+        - if flash[:error]
+          #error
+            =flash[:error]
+        - if flash[:message]
+          #message
+            =flash[:message]
         = yield
       #sidebar
         = yield :sidebar
