@@ -9,7 +9,7 @@ module PostsHelper
     h = Hpricot(c)
     (h/'a').each do |link|
       next unless link['href']
-      if link['href'] =~ /^http:\/\/([a-zA-Z]+\.)?youtube\.com\/watch\?v=([a-zA-Z0-9]+)/
+      if link['href'] =~ /^http:\/\/([a-zA-Z]+\.)?youtube\.com\/watch\?v=([a-zA-Z0-9\-]+)/
         link['class'] = 'embed'
         link.parent.insert_before link.make(youtube_embed($2)), link
       elsif link['href'] =~ /^http:\/\/(www\.)?vimeo\.com\/([0-9]+)/
@@ -52,11 +52,11 @@ module PostsHelper
   private
   def youtube_embed(movie)
     return <<-EOF
-<object width='480' height='385' class="embed">
-  <param name="movie" value="http://www.youtube.com/v/#{movie}&hl=en&fs=1&rel=0&color1=0xcc2550&color2=0xe87a9f"/>
-  <param name="allowFullScreen" value="true"/>
-  <param name ="allowscriptaccess" value="always"/>
-  <embed src="http://www.youtube.com/v/#{movie}&hl=en&fs=1&rel=0&color1=0xcc2550&color2=0xe87a9f" type="application/x-shockwave-flash" allowscriptaccess="always"/>
+<object width='480' height='385'>
+  <param name="movie" value="http://www.youtube.com/v/#{movie}&hl=en&fs=1&rel=0&color1=0xcc2550&color2=0xe87a9f"></param>
+  <param name="allowFullScreen" value="true"></param>
+  <param name ="allowscriptaccess" value="always"></param>
+  <embed src="http://www.youtube.com/v/#{movie}&hl=en&fs=1&rel=0&color1=0xcc2550&color2=0xe87a9f" type="application/x-shockwave-flash" allowscriptaccess="always"></embed>
 </object>
     EOF
   end
