@@ -12,7 +12,7 @@ class ProfileController < ApplicationController
     authenticated = @user.authenticated?(params[:old_password])
     if attrs[:password] && !authenticated
       flash[:error] = 'Old password incorrect.'
-      return render :action => 'show'
+      return render(:action => 'show')
     end
     if attrs[:password].nil? || authenticated
       if @user.update_attributes(attrs)

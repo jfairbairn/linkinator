@@ -20,9 +20,15 @@ class Post < ActiveRecord::Base
   
   after_create do |post|
     post.tmp_url = post.tmp_controller.smart_post_url(post)
-    unless post.in_reply_to
-      User.find(:all, :conditions => ['id != ?', post.user_id]).each do |user|
-        user.send_posts([post])
+    User.find(:all, :conditions => ['id != ? and mail_frequency=?', post.user_id, 0]).each do |user|
+      user.send_posts([post]) if user.include_replies or post.in_reply_to.nil?
+    end
+    now = Time.now
+    User.find(:all, :conditions => ["id != ? and mail_frequency > 0 and strftime('%s',last_mail)+mail_frequency-strftime('%s','now')<0", post.user_id]).each do |user|
+      if user.include_replies
+        user.send_posts(Post.find(:all, :order => 'created_at asc', :conditions => ['created_at > ?', user.last_mail]))
+      else
+        user.send_posts(Post.find(:all, :order => 'created_at asc', :conditions => ['created_at > ? and in_reply_to_id is null', user.last_mail]))
       end
     end
   end

@@ -1,9 +1,35 @@
-%h2 Change email address
+%h2 Change email preferences
 
 - form_for :user, @user, :url => profile_url, :html => {:method => :put} do |f|
   %p
     = label_tag :email
-  = f.text_field :email
+    = f.text_field :email
+  %p
+    = label_tag :mail_frequency, 'Mail frequency:'
+    %table
+      %tr
+        %td
+          = f.radio_button :mail_frequency, 0
+          Every post
+          %br/
+          = f.radio_button :mail_frequency, -1
+          Never
+          %br/
+        %td
+          Batched:
+          %br/
+          = f.radio_button :mail_frequency, 3600
+          At most once an hour
+          %br/
+          = f.radio_button :mail_frequency, 14440
+          At most once every four hours
+          %br/
+          = f.radio_button :mail_frequency, 86400
+          At most once a day
+  %p
+    = label_tag :include_replies, 'Include replies?'
+    = f.check_box :include_replies, {}, true, false
+    
   = submit_tag 'Update email'
   
 %h2 Change password
@@ -16,10 +42,8 @@
     = password_field_tag :old_password, '', :size => 30
   %p
     = label_tag :password, "New password"
-    %br/
     = f.password_field :password
   %p
     = label_tag :password_confirmation, "Confirm new password"
-    %br/
     = f.password_field :password_confirmation
   %p= submit_tag 'Update password'

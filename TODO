@@ -1,6 +1,5 @@
 TO DO
 =====
-mail preferences
 direct messaging
 post by mail
 reply by mail
@@ -13,6 +12,7 @@ json (basic auth)
 
 DONE
 ====
+mail preferences
 change password
 alerts by mail
 user admin
