@@ -25,11 +25,13 @@ class Post < ActiveRecord::Base
     end
     now = Time.now
     User.find(:all, :conditions => ["id != ? and mail_frequency > 0 and strftime('%s',last_mail)+mail_frequency-strftime('%s','now')<0", post.user_id]).each do |user|
+      posts = nil
       if user.include_replies
-        user.send_posts(Post.find(:all, :order => 'created_at asc', :conditions => ['created_at > ?', user.last_mail]))
+        posts = Post.find(:all, :order => 'created_at asc', :conditions => ['created_at > ?', user.last_mail])
       else
-        user.send_posts(Post.find(:all, :order => 'created_at asc', :conditions => ['created_at > ? and in_reply_to_id is null', user.last_mail]))
+        posts = Post.find(:all, :order => 'created_at asc', :conditions => ['created_at > ? and in_reply_to_id is null', user.last_mail])
       end
+      user.send_posts(posts) unless posts.empty?
     end
   end
   
